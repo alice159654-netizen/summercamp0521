@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>軍士官團 夏日小琉球之旅</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0ea5e9', // Sky blue
+                        secondary: '#14b8a6', // Teal
+                        accent: '#f59e0b', // Amber
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f0f9ff; }
+        .card-shadow { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03); }
+        .glass-nav { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(14, 165, 233, 0.1); }
+        .map-marker { animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
+        .map-link { color: #3b82f6; transition: color 0.2s; margin-left: auto; display: inline-flex; align-items: center; justify-content: center; background: #eff6ff; width: 28px; height: 28px; border-radius: 50%; font-size: 13px; text-decoration: none; flex-shrink: 0;}
+        .map-link:hover { background: #dbeafe; color: #2563eb; }
+        .img-placeholder { background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%); display: flex; align-items: center; justify-content: center; text-align: center; color: #64748b; font-size: 10px; font-weight: bold; border-radius: 0.5rem; flex-shrink: 0; overflow: hidden; padding: 4px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);}
+    </style>
+</head>
+<body class="text-slate-800 antialiased pb-24">
+
+    <!-- Header & Navigation (Fixed Top) -->
+    <div class="fixed top-0 left-0 right-0 z-50">
+        <header class="bg-gradient-to-r from-primary to-cyan-500 text-white p-4 shadow-md">
+            <div class="text-xs font-bold bg-white/20 inline-block px-2 py-1 rounded mb-1">2026/5/21(四) - 5/22(五)</div>
+            <h1 class="text-xl font-black tracking-wide"><i class="fas fa-ship mr-2"></i>軍士官團 小琉球夏日之旅</h1>
+        </header>
+        
+        <nav class="glass-nav flex justify-around p-2 text-sm font-bold shadow-sm">
+            <button onclick="switchTab('itinerary')" id="tab-itinerary" class="flex-1 py-2 text-primary border-b-2 border-primary transition-all">行程與攻略</button>
+            <button onclick="switchTab('map')" id="tab-map" class="flex-1 py-2 text-slate-400 border-b-2 border-transparent transition-all">地圖導覽</button>
+            <button onclick="switchTab('info')" id="tab-info" class="flex-1 py-2 text-slate-400 border-b-2 border-transparent transition-all">住宿與車輛</button>
+        </nav>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="pt-32 px-4 max-w-md mx-auto">
+
+        <!-- ==================== TAB 1: ITINERARY ==================== -->
+        <div id="itinerary" class="tab-content">
+            
+            <!-- Important Notice -->
+            <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded-r-lg shadow-sm">
+                <p class="text-red-700 font-black text-[15px] flex items-center"><i class="fas fa-exclamation-triangle mr-2"></i>出發集合時間</p>
+                <div class="mt-2 text-[13px] text-red-600 font-medium space-y-1">
+                    <p class="flex items-center">06:15 嘉義出發 <a href="https://maps.google.com/?q=嘉義航空站" target="_blank" class="map-link ml-2 w-6 h-6 text-[10px]"><i class="fas fa-map-marker-alt"></i></a></p>
+                    <p class="flex items-center mt-1">08:00 抵達東港 <strong>和記停車場</strong> <a href="https://maps.google.com/?q=東港碼頭和記停車場" target="_blank" class="map-link ml-2 w-6 h-6 text-[10px]"><i class="fas fa-map-marker-alt"></i></a></p>
+                    <p class="text-xs ml-8">(聯絡電話: 0938-383-030)</p>
+                    <p class="text-[11px] text-red-500 bg-red-100/50 p-1 rounded inline-block mt-1">※ 兩天一夜250，有遮陽棚優惠320，可於隔天17:30前取車</p>
+                    <div class="flex items-center bg-red-100 p-2 rounded mt-2">
+                        <span class="text-base font-black text-red-700">08:20 泰富航運碼頭 集合</span>
+                        <a href="https://maps.google.com/?q=東港泰富航運" target="_blank" class="map-link bg-red-200 text-red-700 hover:bg-red-300 ml-auto"><i class="fas fa-map-marker-alt"></i></a>
+                    </div>
+                </div>
+                
+                <!-- 5/20 Pre-notice -->
+                <div class="mt-3 pt-3 border-t border-red-200">
+                    <p class="font-bold text-red-700 flex items-center text-[14px]"><i class="fas fa-id-card mr-2"></i>5/20 前置作業</p>
+                    <p class="text-[12px] text-red-600 mt-1 leading-relaxed">前一天會先向大家收取<strong>「身分證」</strong>與<strong>「機車駕照」</strong>，我會提前去拿船票與協調機車，辦妥後會馬上歸還給大家。</p>
+                </div>
+            </div>
+
+            <!-- Day 1 -->
+            <div class="mb-8">
+                <h2 class="text-lg font-black text-primary mb-3 flex items-center"><i class="fas fa-sun mr-2"></i>Day 1: 5/21 (四) 踩點與玩水派對</h2>
+                
+                <!-- Morning Timeline -->
+                <div class="bg-white rounded-xl card-shadow p-4 mb-4 border border-cyan-100 relative">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-cyan-400 rounded-l-xl"></div>
+                    <h3 class="font-black text-cyan-700 mb-3 border-b border-slate-100 pb-2">🌅 上午：西北海岸線順遊</h3>
+                    
+                    <ul class="space-y-4 relative before:absolute before:inset-0 before:ml-2 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-200 before:to-transparent">
+                        <li class="relative flex items-center gap-3">
+                            <div class="w-4 h-4 bg-cyan-500 rounded-full ring-4 ring-white z-10"></div>
+                            <div class="flex-1 flex items-center">
+                                <div>
+                                    <span class="font-black text-slate-800 text-sm">09:30 抵達與牽車</span>
+                                    <p class="text-[11px] text-slate-500 mt-0.5">和春機車行 <span class="text-cyan-600 font-bold">(有帶小朋友行李給店家送至民宿)</span></p>
+                                </div>
+                                <a href="https://maps.google.com/?q=小琉球和春機車行" target="_blank" class="map-link"><i class="fas fa-map-marker-alt"></i></a>
+                            </div>
+                        </li>
+                        <li class="relative flex items-start gap-3">
+                            <div class="w-4 h-4 bg-cyan-300 rounded-full ring-4 ring-white z-10 mt-1"></div>
+                            <div class="flex-1 bg-slate-50 p-3 rounded-lg border border-slate-100">
+                                <span class="font-black text-slate-800 text-sm text-cyan-700 block mb-3">09:45 - 11:45 團體西岸打卡路線</span>
+                                
+                                <!-- Detailed Spot Cards -->
+                                <div class="space-y-3">
+                                    <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-slate-100">
+                                        <div class="w-[60px] h-[60px] img-placeholder"></div>
+                                        <div class="flex-1">
+                                            <div class="flex justify-between items-start">
+                                                <span class="font-bold text-slate-800 text-[13px]">海龜郵筒</span>
+                                                <a href="https://maps.google.com/?q=小琉球海龜郵筒" target="_blank" class="map-link w-5 h-5 text-[10px]"><i class="fas fa-map-marker-alt"></i></a>
+                                            </div>
+                                            <p class="text-[11px] text-slate-500 mt-1">全台獨一無二的立體海龜造型郵筒，下船第一站超萌快閃合照。</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-slate-100">
+                                        <div class="w-[60px] h-[60px] img-placeholder"></div>
+                                        <div class="flex-1">
+                                            <div class="flex justify-between items-start">
+                                                <span class="font-bold text-slate-800 text-[13px]">861dayday</span>
+                                                <a href="https://maps.google.com/?q=861dayday" target="_blank" class="map-link w-5 h-5 text-[10px]"><i class="fas fa-map-marker-alt"></i></a>
+                                            </div>
+                                            <p class="text-[11px] text-slate-500 mt-1">人氣網美店！門口必拍「我在小琉球你呢」打卡牆，還可買海龜雞蛋糕。</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-slate-100">
+                                        <div class="w-[60px] h-[60px] img-placeholder"></div>
+                                        <div class="flex-1">
+                                            <div class="flex justify-between items-start">
+                                                <span class="font-bold text-slate-800 text-[13px]">花瓶岩</span>
+                                                <a href="https://maps.google.com/?q=小琉球花瓶岩" target="_blank" class="map-link w-5 h-5 text-[10px]"><i class="fas fa-map-marker-alt"></i></a>
+                                            </div>
+                                            <p class="text-[11px] text-slate-500 mt-1">小琉球最具代表性的天然珊瑚礁岩地標，海水清澈透藍。</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-slate-100">
+                                        <div class="w-[60px] h-[60px] img-placeholder"></div>
+                                        <div class="flex-1">
+                                            <div class="flex justify-between items-start">
+                                                <span class="font-bold text-slate-800 text-[13px]">美人洞望海亭</span>
+                                                <a href="https://maps.google.com/?q=美人洞望海亭" target="_blank" class="map-link w-5 h-5 text-[10px]"><i class="fas fa-map-marker-alt"></i></a>
+                                            </div>
+                                            <p class="text-[11px] text-slate-500 mt-1">免門票的無敵觀景台！居高臨下俯瞰珊瑚裙礁，是尋找海龜的最佳視野。</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-slate-100">
+                                        <div class="w-[60px] h-[60px] img-placeholder"></div>
+                                        <div class="flex-1">
+                                            <div class="flex justify-between items-start">
+                                                <span class="font-bold text-slate-800 text-[13px]">琉行之道-八福獸</span>
+                                                <a href="https://maps.google.com/?q=琉行之道" target="_blank" class="map-link w-5 h-5 text-[10px]"><i class="fas fa-map-marker-alt"></i></a>
+                                            </div>
+                                            <p class="text-[11px] text-slate-500 mt-1">沿著浪漫的西岸海濱步道漫步，尋找可愛的八隻Ｑ版神獸石像。</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-slate-100">
+                                        <div class="w-[60px] h-[60px] img-placeholder"></div>
+                                        <div class="flex-1">
+                                            <div class="flex justify-between items-start">
+                                                <span class="font-bold text-slate-800 text-[13px]">杉福潮間帶</span>
+                                                <a href="https://maps.google.com/?q=杉福潮間帶" target="_blank" class="map-link w-5 h-5 text-[10px]"><i class="fas fa-map-marker-alt"></i></a>
+                                            </div>
+                                            <p class="text-[11px] text-slate-500 mt-1">豐富的天然海洋生態走廊，單純走馬看花，享受天然海風吹拂。</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-slate-100">
+                                        <div class="w-[60px] h-[60px] img-placeholder"></div>
+                                        <div class="flex-1">
+                                            <div class="flex justify-between items-start">
+                                                <span class="font-bold text-slate-800 text-[13px]">蛤板灣 (威尼斯沙灘)</span>
+                                                <a href="https://maps.google.com/?q=小琉球蛤板灣" target="_blank" class="map-link w-5 h-5 text-[10px]"><i class="fas fa-map-marker-alt"></i></a>
+                                            </div>
+                                            <p class="text-[11px] text-slate-500 mt-1">素有威尼斯沙灘美名的白沙灘，絕美的弧形海岸線適合踏浪拍照。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="relative flex items-center gap-3">
+                            <div class="w-4 h-4 bg-amber-400 rounded-full ring-4 ring-white z-10"></div>
+                            <div class="flex-1 flex items-center">
+                                <div>
+                                    <span class="font-black text-slate-800 text-sm text-amber-600">11:50 抵達晴海民宿</span>
+                                    <p class="text-xs text-slate-500 mt-0.5">稍作休息、放置隨身物品</p>
+                                </div>
+                                <a href="https://maps.google.com/?q=小琉球晴海民宿" target="_blank" class="map-link"><i class="fas fa-map-marker-alt"></i></a>
+                            </div>
+                        </li>
+                        <li class="relative flex flex-col gap-1 pl-7">
+                            <div class="bg-white border border-amber-200 p-3 rounded-lg shadow-sm">
+                                <div class="flex justify-between items-start mb-2">
+                                    <span class="font-black text-amber-700 text-sm">12:00 午餐：大頭山海產</span>
+                                    <a href="https://maps.google.com/?q=大頭山海產" target="_blank" class="bg-amber-100 text-amber-700 w-7 h-7 rounded-full flex items-center justify-center shadow-sm"><i class="fas fa-location-arrow"></i></a>
+                                </div>
+                                <div class="bg-amber-50 rounded p-2 text-[12px]">
+                                    <span class="font-bold text-amber-800 block mb-1"><i class="fas fa-star text-amber-500 mr-1"></i>老饕必點推薦：</span>
+                                    <ul class="list-disc list-inside text-amber-700 space-y-0.5 font-medium ml-1">
+                                        <li>招牌蜂巢蝦 (必點名菜)</li>
+                                        <li>鬼頭刀炒飯</li>
+                                        <li>新鮮綜合生魚片</li>
+                                        <li>塔香蛤蜊、雨傘魚炒西瓜綿</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Afternoon Split -->
+                <div class="bg-white rounded-xl card-shadow p-4 mb-4 border border-blue-100">
+                    <h3 class="font-black text-blue-700 mb-3 border-b border-slate-100 pb-2">☀️ 14:00 - 17:30 下午自由分流</h3>
+                    
+                    <!-- Water Group -->
+                    <div class="mb-5 bg-blue-50 p-3 rounded-lg border border-blue-200">
+                        <div class="font-black text-blue-700 text-[15px] mb-3 flex items-center"><i class="fas fa-swimmer mr-2"></i>玩水組 (多種水域選擇)</div>
+                        <div class="space-y-2">
+                            <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-blue-100">
+                                <div class="w-[50px] h-[50px] img-placeholder bg-blue-100 text-blue-500 border-blue-200"></div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start">
+                                        <span class="font-black text-slate-800 text-[13px]">1. 上杉福安宮後方海灘</span>
+                                        <a href="https://maps.google.com/?q=小琉球上杉福安宮" target="_blank" class="map-link w-5 h-5 text-[10px] bg-blue-50 text-blue-600"><i class="fas fa-location-arrow"></i></a>
+                                    </div>
+                                    <span class="text-slate-600 block text-[11px] mt-1">推薦首選！私房秘境，海龜極多。</span>
+                                </div>
+                            </div>
+                            <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-blue-100">
+                                <div class="w-[50px] h-[50px] img-placeholder bg-blue-100 text-blue-500 border-blue-200"></div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start">
+                                        <span class="font-black text-slate-800 text-[13px]">2. 中澳沙灘</span>
+                                        <a href="https://maps.google.com/?q=中澳沙灘" target="_blank" class="map-link w-5 h-5 text-[10px] bg-blue-50 text-blue-600"><i class="fas fa-location-arrow"></i></a>
+                                    </div>
+                                    <span class="text-slate-600 block text-[11px] mt-1">沙質最細、水域平緩，適合帶小朋友踏水。</span>
+                                </div>
+                            </div>
+                            <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-blue-100">
+                                <div class="w-[50px] h-[50px] img-placeholder bg-blue-100 text-blue-500 border-blue-200"></div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start">
+                                        <span class="font-black text-slate-800 text-[13px]">3. 厚石魚澳</span>
+                                        <a href="https://maps.google.com/?q=厚石魚澳" target="_blank" class="map-link w-5 h-5 text-[10px] bg-blue-50 text-blue-600"><i class="fas fa-location-arrow"></i></a>
+                                    </div>
+                                    <span class="text-slate-600 block text-[11px] mt-1">天然珊瑚礁岩泳池，阻擋風浪非常安全。</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Photo Group -->
+                    <div class="bg-emerald-50 p-3 rounded-lg border border-emerald-200">
+                        <div class="font-black text-emerald-700 text-[15px] mb-3 flex items-center"><i class="fas fa-camera-retro mr-2"></i>拍照網美組 (逆時針環島)</div>
+                        <div class="space-y-2">
+                            
+                            <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-emerald-100">
+                                <div class="w-[50px] h-[50px] img-placeholder bg-emerald-50 text-emerald-600 border-emerald-100"></div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start">
+                                        <span class="font-bold text-slate-800 text-[13px]">海洋驛站</span>
+                                        <a href="https://maps.google.com/?q=琉球海洋驛站" target="_blank" class="map-link w-5 h-5 text-[10px] bg-emerald-50 text-emerald-600"><i class="fas fa-map-marker-alt"></i></a>
+                                    </div>
+                                    <p class="text-[11px] text-slate-500 mt-0.5">海龜保育展覽，寓教於樂好地方。</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-emerald-100">
+                                <div class="w-[50px] h-[50px] img-placeholder bg-emerald-50 text-emerald-600 border-emerald-100"></div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start">
+                                        <span class="font-bold text-slate-800 text-[13px]">美人洞</span>
+                                        <a href="https://maps.google.com/?q=小琉球美人洞" target="_blank" class="map-link w-5 h-5 text-[10px] bg-emerald-50 text-emerald-600"><i class="fas fa-map-marker-alt"></i></a>
+                                    </div>
+                                    <p class="text-[11px] text-slate-500 mt-0.5">欣賞特殊珊瑚礁岩洞奇景與一線天。</p>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-emerald-100">
+                                <div class="w-[50px] h-[50px] img-placeholder bg-emerald-50 text-emerald-600 border-emerald-100"></div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start">
+                                        <span class="font-bold text-slate-800 text-[13px]">山豬溝</span>
+                                        <a href="https://maps.google.com/?q=小琉球山豬溝" target="_blank" class="map-link w-5 h-5 text-[10px] bg-emerald-50 text-emerald-600"><i class="fas fa-map-marker-alt"></i></a>
+                                    </div>
+                                    <p class="text-[11px] text-slate-500 mt-0.5">島上最涼爽！充滿蕨類與芬多精的木棧道。</p>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-2.5 bg-amber-50 p-2 rounded shadow-sm border border-amber-200">
+                                <div class="w-[50px] h-[50px] img-placeholder bg-amber-100 text-amber-700 border-amber-300"></div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start">
+                                        <span class="font-black text-amber-800 text-[13px]">烏鬼洞 & 桑葚冰</span>
+                                        <a href="https://maps.google.com/?q=小琉球烏鬼洞" target="_blank" class="map-link w-5 h-5 text-[10px] bg-amber-100 text-amber-700"><i class="fas fa-map-marker-alt"></i></a>
+                                    </div>
+                                    <p class="text-[11px] text-amber-700 mt-0.5 font-bold">礁岩洞穴探險，出口必吃當地最出名的「阿嬤酸甜桑葚冰」消暑！</p>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-emerald-100">
+                                <div class="w-[50px] h-[50px] img-placeholder bg-emerald-50 text-emerald-600 border-emerald-100"></div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start">
+                                        <span class="font-bold text-slate-800 text-[13px]">觀音石</span>
+                                        <a href="https://maps.google.com/?q=小琉球觀音石" target="_blank" class="map-link w-5 h-5 text-[10px] bg-emerald-50 text-emerald-600"><i class="fas fa-map-marker-alt"></i></a>
+                                    </div>
+                                    <p class="text-[11px] text-slate-500 mt-0.5">路邊的天然奇石，輪廓神似觀音面海。</p>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-emerald-100">
+                                <div class="w-[50px] h-[50px] img-placeholder bg-emerald-50 text-emerald-600 border-emerald-100"></div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start">
+                                        <span class="font-bold text-slate-800 text-[13px]">旭日亭</span>
+                                        <a href="https://maps.google.com/?q=小琉球旭日亭" target="_blank" class="map-link w-5 h-5 text-[10px] bg-emerald-50 text-emerald-600"><i class="fas fa-map-marker-alt"></i></a>
+                                    </div>
+                                    <p class="text-[11px] text-slate-500 mt-0.5">依山傍海的木造涼亭，居高臨下絕美海景。</p>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-emerald-100">
+                                <div class="w-[50px] h-[50px] img-placeholder bg-emerald-50 text-emerald-600 border-emerald-100"></div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start">
+                                        <span class="font-bold text-slate-800 text-[13px]">網美老木</span>
+                                        <a href="https://maps.google.com/?q=網美老木" target="_blank" class="map-link w-5 h-5 text-[10px] bg-emerald-50 text-emerald-600"><i class="fas fa-map-marker-alt"></i></a>
+                                    </div>
+                                    <p class="text-[11px] text-slate-500 mt-0.5">大福漁港旁隱藏版漂流木，絕佳人像拍攝點。</p>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-emerald-100">
+                                <div class="w-[50px] h-[50px] img-placeholder bg-emerald-50 text-emerald-600 border-emerald-100"></div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start">
+                                        <span class="font-bold text-slate-800 text-[13px]">龍蝦洞</span>
+                                        <a href="https://maps.google.com/?q=小琉球龍蝦洞" target="_blank" class="map-link w-5 h-5 text-[10px] bg-emerald-50 text-emerald-600"><i class="fas fa-map-marker-alt"></i></a>
+                                    </div>
+                                    <p class="text-[11px] text-slate-500 mt-0.5">欣賞壯觀的海蝕溝地形，聽海浪拍打聲。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Evening Timeline -->
+                <div class="bg-slate-800 text-white rounded-xl card-shadow p-5 mb-4 relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 text-slate-700 opacity-30 text-6xl"><i class="fas fa-fire"></i></div>
+                    
+                    <div class="relative z-10 border-b border-slate-700 pb-3 mb-3">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-black text-amber-400 text-base">18:30 晚餐：五點燒烤</span>
+                            <a href="https://maps.google.com/?q=小琉球五點燒烤" target="_blank" class="bg-amber-500 text-white w-8 h-8 flex items-center justify-center rounded-full shadow-sm hover:bg-amber-600"><i class="fas fa-location-arrow"></i></a>
+                        </div>
+                        <div class="bg-slate-700/50 p-2.5 rounded-lg text-[12px] leading-relaxed">
+                            <span class="font-bold text-cyan-300 block mb-1"><i class="fas fa-thumbs-up mr-1"></i>全島最衛生乾淨的店家！</span>
+                            <ul class="list-disc list-inside text-slate-300 space-y-1 ml-1">
+                                <li>烤爐排煙系統極佳，整晚烤肉不燻眼。</li>
+                                <li>所有食材皆有加蓋，防蟲衛生滿分。</li>
+                                <li>海鮮、鮮蚵補貨超霸氣不怕吃。</li>
+                                <li>動線寬敞不擁擠，完美適合團體聚餐！</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="relative z-10 flex items-center justify-between">
+                        <div class="flex flex-col">
+                            <span class="font-black text-white text-sm">20:30 民宿續攤</span>
+                            <span class="text-[11px] text-slate-400 mt-0.5">自由放鬆 / 電動麻將 / 無限 KTV</span>
+                        </div>
+                        <a href="https://maps.google.com/?q=小琉球晴海民宿" target="_blank" class="map-link bg-slate-700 text-slate-300 hover:bg-slate-600"><i class="fas fa-map-marker-alt"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 2 -->
+            <div class="mb-8">
+                <h2 class="text-lg font-black text-primary mb-3 flex items-center"><i class="fas fa-car-side mr-2"></i>Day 2: 5/22 (五) 漫遊與賦歸</h2>
+                <div class="bg-white rounded-xl card-shadow p-4 border border-cyan-100">
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex gap-3 items-center border-b border-slate-50 pb-2">
+                            <span class="font-black text-slate-400">08:30</span>
+                            <span class="font-bold text-slate-700">民宿早餐</span>
+                        </li>
+                        <li class="flex gap-3 items-start border-b border-slate-50 pb-3">
+                            <span class="font-black text-cyan-600 mt-0.5">09:30</span>
+                            <div class="flex-1">
+                                <span class="font-black text-cyan-700 block mb-1">自由探索時間</span>
+                                <p class="text-[12px] text-slate-600 font-medium leading-relaxed mb-3">
+                                    前往第一天下午沒去的地點！<br>
+                                    <span class="text-slate-400">※ 若昨日玩水，今日可走網美路線；反之亦可去踩沙踏浪。</span>
+                                </p>
+                                
+                                <div class="space-y-2">
+                                    <div class="flex gap-2 bg-slate-50 p-2 rounded border border-slate-100">
+                                        <div class="w-10 h-10 img-placeholder text-[8px]"></div>
+                                        <div class="flex-1">
+                                            <div class="flex justify-between">
+                                                <span class="font-bold text-slate-700 text-[12px]">白燈塔 & 百年榕樹</span>
+                                                <a href="https://maps.google.com/?q=小琉球白燈塔" target="_blank" class="map-link w-4 h-4 text-[9px]"><i class="fas fa-map-marker-alt"></i></a>
+                                            </div>
+                                            <p class="text-[10px] text-slate-500">純白建築與看海秘境。</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-2 bg-slate-50 p-2 rounded border border-slate-100">
+                                        <div class="w-10 h-10 img-placeholder text-[8px]"></div>
+                                        <div class="flex-1">
+                                            <div class="flex justify-between">
+                                                <span class="font-bold text-slate-700 text-[12px]">觀音石 / 紅番石</span>
+                                                <a href="https://maps.google.com/?q=小琉球觀音石" target="_blank" class="map-link w-4 h-4 text-[9px]"><i class="fas fa-map-marker-alt"></i></a>
+                                            </div>
+                                            <p class="text-[10px] text-slate-500">免下車超狂打卡點。</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-2 bg-slate-50 p-2 rounded border border-slate-100">
+                                        <div class="w-10 h-10 img-placeholder text-[8px] bg-amber-100 border-amber-200 text-amber-600"></div>
+                                        <div class="flex-1">
+                                            <div class="flex justify-between">
+                                                <span class="font-bold text-amber-700 text-[12px]">烏鬼洞 & 桑葚冰</span>
+                                                <a href="https://maps.google.com/?q=小琉球烏鬼洞" target="_blank" class="map-link w-4 h-4 text-[9px] bg-amber-100 text-amber-600"><i class="fas fa-map-marker-alt"></i></a>
+                                            </div>
+                                            <p class="text-[10px] text-slate-500">若昨日未去，今日補吃冰看海！</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="flex gap-3 items-start border-b border-slate-50 pb-2">
+                            <span class="font-black text-amber-500 mt-0.5">11:00</span>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-black text-amber-700 block">民宿退房</span>
+                                    <a href="https://maps.google.com/?q=小琉球晴海民宿" target="_blank" class="map-link bg-amber-50 text-amber-600 hover:bg-amber-100"><i class="fas fa-map-marker-alt"></i></a>
+                                </div>
+                                <p class="text-[12px] text-slate-600 font-medium mt-1">請將行李集中整理，退房後大家仍可留在民宿的<strong>公共區域休息</strong>。</p>
+                            </div>
+                        </li>
+                        <li class="bg-amber-50 p-3 rounded-lg border border-amber-200 my-2 shadow-sm">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-black text-amber-800 text-sm">12:00 還機車 & 流行海產(午餐)</span>
+                                <a href="https://maps.google.com/?q=流行海產餐廳" target="_blank" class="bg-amber-500 text-white w-7 h-7 rounded-full flex items-center justify-center shadow-sm"><i class="fas fa-location-arrow"></i></a>
+                            </div>
+                            <div class="bg-white rounded p-2 text-[12px]">
+                                <span class="text-amber-700 font-black block mb-1"><i class="fas fa-walking mr-1"></i>極度方便：</span>
+                                <p class="text-slate-600 mb-2">距離車行極近，<strong>吃完飯走路 3 分鐘就能還機車！</strong></p>
+                                <span class="text-amber-700 font-black block mb-1"><i class="fas fa-star text-amber-500 mr-1"></i>在地必吃推薦：</span>
+                                <ul class="list-disc list-inside text-slate-700 space-y-0.5 font-medium ml-1">
+                                    <li>招牌海菜炒蛋</li>
+                                    <li>酥炸手工花枝丸</li>
+                                    <li>新鮮生魚片、炒海瓜子</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="flex gap-3 items-center border-b border-slate-50 pb-2 mt-2">
+                            <span class="font-black text-rose-500">13:30</span>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-slate-800">澎坊免稅店 購物</span> 
+                                    <a href="https://maps.google.com/?q=澎坊免稅商店小琉球" target="_blank" class="map-link bg-rose-50 text-rose-500 hover:bg-rose-100"><i class="fas fa-map-marker-alt"></i></a>
+                                </div>
+                                <p class="text-[11px] text-rose-600 bg-rose-50 px-1 rounded mt-0.5 inline-block">※ 需攜帶身分證件</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-3 items-center pt-1 pb-2 border-b border-slate-50">
+                            <span class="font-black text-primary text-base">14:00</span>
+                            <div class="flex-1 flex justify-between items-center">
+                                <span class="font-black text-primary text-base">碼頭集合，搭乘泰富航運</span>
+                                <a href="https://maps.google.com/?q=白沙尾渡船碼頭" target="_blank" class="map-link"><i class="fas fa-map-marker-alt"></i></a>
+                            </div>
+                        </li>
+                        <li class="flex gap-3 items-center pt-1 bg-cyan-50 p-3 rounded border border-cyan-100">
+                            <span class="font-black text-cyan-800 text-base">15:00</span>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-black text-cyan-800 text-[15px]">抵達東港碼頭</span>
+                                    <a href="https://maps.google.com/?q=東港渡船碼頭" target="_blank" class="map-link bg-cyan-200 text-cyan-800"><i class="fas fa-map-marker-alt"></i></a>
+                                </div>
+                                <p class="text-[12px] font-bold text-cyan-700 mt-1">前往和記取車，帶著滿滿回憶快樂賦歸！</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Enhanced Food & Gift Notes -->
+            <div class="bg-orange-50 rounded-xl card-shadow p-4 mb-8 border border-orange-200">
+                <h3 class="font-black text-orange-700 mb-3 flex items-center text-[16px]"><i class="fas fa-gift mr-2"></i>必吃與伴手禮 究極指南</h3>
+                
+                <!-- Xiaoliuqiu -->
+                <div class="mb-4">
+                    <span class="text-[14px] font-black text-white bg-orange-500 px-3 py-1 rounded-full inline-block mb-3 shadow-sm">🏝️ 小琉球必吃/必買</span>
+                    <div class="space-y-3">
+                        <div class="flex gap-3 bg-white p-2 rounded-lg shadow-sm border border-orange-100">
+                            <div class="w-[70px] h-[70px] img-placeholder bg-amber-50 border-amber-100 text-amber-600"></div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <strong class="text-slate-800 text-[14px]">卡布敦啤酒 Captain Beer</strong>
+                                    <a href="https://maps.google.com/?q=卡布敦啤酒" target="_blank" class="map-link w-6 h-6 text-[11px] bg-amber-50 text-amber-600"><i class="fas fa-map-marker-alt"></i></a>
+                                </div>
+                                <span class="text-slate-500 text-[12px] leading-tight block mt-1">小琉球限定！只有島上才買得到的專屬微醺滋味，水蜜桃口味大推。</span>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-3 bg-white p-2 rounded-lg shadow-sm border border-orange-100">
+                            <div class="w-[70px] h-[70px] img-placeholder bg-orange-50 border-orange-100 text-orange-600"></div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <strong class="text-slate-800 text-[14px]">手工麻花捲 (王老師/龍鑽)</strong>
+                                    <a href="https://maps.google.com/?q=小琉球麻花捲" target="_blank" class="map-link w-6 h-6 text-[11px] bg-orange-50 text-orange-600"><i class="fas fa-map-marker-alt"></i></a>
+                                </div>
+                                <span class="text-slate-500 text-[12px] leading-tight block mt-1">經典無敵伴手禮！口味多樣，酥脆不甜膩，買十送一買起來。</span>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-3 bg-white p-2 rounded-lg shadow-sm border border-orange-100">
+                            <div class="w-[70px] h-[70px] img-placeholder bg-yellow-50 border-yellow-100 text-yellow-600"></div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <strong class="text-slate-800 text-[14px]">小蝌蚪起司餅</strong>
+                                    <a href="https://maps.google.com/?q=小蝌蚪起司餅" target="_blank" class="map-link w-6 h-6 text-[11px] bg-yellow-50 text-yellow-600"><i class="fas fa-map-marker-alt"></i></a>
+                                </div>
+                                <span class="text-slate-500 text-[12px] leading-tight block mt-1">超難訂的牽絲神物！早上十點務必狂打電話預訂，牛肉/雞肉都好吃。</span>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-3 bg-white p-2 rounded-lg shadow-sm border border-orange-100">
+                            <div class="w-[70px] h-[70px] img-placeholder bg-emerald-50 border-emerald-100 text-emerald-600"></div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <strong class="text-slate-800 text-[14px]">海龜燒 (西晒/861dayday)</strong>
+                                    <a href="https://maps.google.com/?q=小琉球海龜燒" target="_blank" class="map-link w-6 h-6 text-[11px] bg-emerald-50 text-emerald-600"><i class="fas fa-map-marker-alt"></i></a>
+                                </div>
+                                <span class="text-slate-500 text-[12px] leading-tight block mt-1">海龜造型的現烤雞蛋糕，包著濃郁卡士達，拍照超萌的下午茶點心。</span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-3 bg-white p-2 rounded-lg shadow-sm border border-orange-100">
+                            <div class="w-[70px] h-[70px] img-placeholder bg-orange-50 border-orange-100 text-orange-600"></div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <strong class="text-slate-800 text-[14px]">蜜仔番薯糖</strong>
+                                    <a href="https://maps.google.com/?q=蜜仔番薯糖" target="_blank" class="map-link w-6 h-6 text-[11px] bg-orange-50 text-orange-600"><i class="fas fa-map-marker-alt"></i></a>
+                                </div>
+                                <span class="text-slate-500 text-[12px] leading-tight block mt-1">包裝精緻文青的隱藏版名產，不黏牙的古早味地瓜酥，送禮首選。</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Donggang -->
+                <div class="pt-3 border-t border-orange-200">
+                    <span class="text-[14px] font-black text-white bg-red-500 px-3 py-1 rounded-full inline-block mb-3 shadow-sm">⛴️ 東港必買 (大智嚴選)</span>
+                    <div class="space-y-3">
+                        <div class="flex gap-3 bg-white p-2 rounded-lg shadow-sm border border-red-100 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-1.5 h-full bg-red-400"></div>
+                            <div class="w-[60px] h-[60px] img-placeholder bg-red-50 text-red-600 border-red-100"></div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <strong class="text-slate-800 text-[14px]">雙糕潤 (邱記/成記)</strong>
+                                    <a href="https://maps.google.com/?q=東港雙糕潤" target="_blank" class="map-link w-6 h-6 text-[11px] bg-red-50 text-red-600"><i class="fas fa-map-marker-alt"></i></a>
+                                </div>
+                                <span class="text-slate-500 text-[12px] leading-tight block mt-1">東港最具代表性甜點！黑糖香氣濃郁，口感軟糯Q彈，晚來買不到。</span>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-3 bg-white p-2 rounded-lg shadow-sm border border-red-100 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-1.5 h-full bg-red-400"></div>
+                            <div class="w-[60px] h-[60px] img-placeholder bg-red-50 text-red-600 border-red-100"></div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <strong class="text-slate-800 text-[14px]">旗魚黑輪 (瑞字號)</strong>
+                                    <a href="https://maps.google.com/?q=華僑市場瑞字號旗魚黑輪" target="_blank" class="map-link w-6 h-6 text-[11px] bg-red-50 text-red-600"><i class="fas fa-map-marker-alt"></i></a>
+                                </div>
+                                <span class="text-slate-500 text-[12px] leading-tight block mt-1">華僑市場內必排現炸極品！包著水煮蛋的旗魚漿，熱騰騰咬下超滿足。</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ==================== TAB 2: MAP ==================== -->
+        <div id="map" class="tab-content hidden">
+            <h2 class="text-lg font-black text-primary mb-3"><i class="fas fa-map-marked-alt mr-2"></i>景點精確分佈圖</h2>
+            <div class="bg-cyan-50 rounded-2xl p-4 card-shadow border border-cyan-100 relative h-[500px] overflow-hidden flex items-center justify-center">
+                <!-- Decorative Island Background -->
+                <div class="absolute inset-4 bg-emerald-100/50 rounded-[40%] blur-xl"></div>
+                <div class="absolute inset-8 bg-emerald-200/40 rounded-[30%] rotate-12"></div>
+                
+                <div class="relative w-full h-full">
+                    <!-- North (Town) -->
+                    <div class="absolute top-[5%] left-[50%] -translate-x-1/2 text-center map-marker z-20">
+                        <i class="fas fa-ship text-2xl text-blue-600"></i>
+                        <div class="text-[10px] font-black bg-white/90 px-1 rounded mt-1 border border-slate-200 shadow-sm">白沙尾碼頭</div>
+                    </div>
+                    <div class="absolute top-[12%] left-[65%] text-center z-10">
+                        <div class="w-4 h-4 bg-cyan-500 text-white rounded-full text-[10px] flex items-center justify-center font-bold shadow-md mx-auto mb-0.5">1</div>
+                        <div class="text-[9px] font-bold bg-white px-1 rounded shadow-sm border border-slate-200">海龜郵筒/861dayday</div>
+                    </div>
+                    <div class="absolute top-[8%] left-[30%] text-center z-10">
+                        <div class="w-4 h-4 bg-cyan-500 text-white rounded-full text-[10px] flex items-center justify-center font-bold shadow-md mx-auto mb-0.5">2</div>
+                        <div class="text-[9px] font-bold bg-white px-1 rounded shadow-sm border border-slate-200">花瓶岩</div>
+                    </div>
+
+                    <!-- West Coast Route (Morning & Afternoon) -->
+                    <div class="absolute top-[22%] left-[15%] text-center">
+                        <div class="w-4 h-4 bg-cyan-500 text-white rounded-full text-[10px] flex items-center justify-center font-bold shadow-md mx-auto mb-0.5">3</div>
+                        <div class="text-[9px] font-bold bg-white px-1 rounded shadow-sm">美人洞</div>
+                    </div>
+                    <div class="absolute top-[35%] left-[8%] text-center">
+                        <div class="w-4 h-4 bg-cyan-500 text-white rounded-full text-[10px] flex items-center justify-center font-bold shadow-md mx-auto mb-0.5">4</div>
+                        <div class="text-[9px] font-bold bg-white text-cyan-700 px-1 rounded shadow-sm">琉行之道-八福獸</div>
+                    </div>
+                    <div class="absolute top-[45%] left-[6%] text-center">
+                        <div class="w-4 h-4 bg-cyan-500 text-white rounded-full text-[10px] flex items-center justify-center font-bold shadow-md mx-auto mb-0.5">5</div>
+                        <div class="text-[9px] font-bold bg-white px-1 rounded shadow-sm">杉福潮間帶</div>
+                    </div>
+                    <div class="absolute top-[55%] left-[10%] text-center">
+                        <div class="w-4 h-4 bg-cyan-500 text-white rounded-full text-[10px] flex items-center justify-center font-bold shadow-md mx-auto mb-0.5">6</div>
+                        <div class="text-[9px] font-bold bg-white px-1 rounded shadow-sm">蛤板灣</div>
+                    </div>
+
+                    <!-- Water Play Locations -->
+                    <div class="absolute top-[65%] left-[12%] text-center z-10">
+                        <div class="w-5 h-5 bg-blue-500 text-white rounded-full text-xs flex items-center justify-center font-bold shadow-md mx-auto mb-1 ring-2 ring-blue-200"><i class="fas fa-water"></i></div>
+                        <div class="text-[10px] font-bold bg-white text-blue-600 border border-blue-200 px-1 rounded shadow-sm">上杉福安宮海灘</div>
+                    </div>
+                    <div class="absolute top-[35%] right-[15%] text-center">
+                        <div class="w-5 h-5 bg-blue-500 text-white rounded-full text-xs flex items-center justify-center font-bold shadow-md mx-auto mb-1 ring-2 ring-blue-200"><i class="fas fa-water"></i></div>
+                        <div class="text-[10px] font-bold bg-white text-blue-700 px-1 rounded shadow-sm">中澳沙灘</div>
+                    </div>
+                    <div class="absolute bottom-[5%] right-[30%] text-center">
+                        <div class="w-5 h-5 bg-blue-500 text-white rounded-full text-xs flex items-center justify-center font-bold shadow-md mx-auto mb-1 ring-2 ring-blue-200"><i class="fas fa-water"></i></div>
+                        <div class="text-[10px] font-bold bg-white px-1 rounded shadow-sm">厚石魚澳</div>
+                    </div>
+
+                    <!-- Center (Home & Lunch) -->
+                    <div class="absolute top-[45%] left-[50%] -translate-x-1/2 text-center z-20">
+                        <div class="relative">
+                            <div class="absolute inset-0 bg-amber-400 rounded-full animate-ping opacity-75"></div>
+                            <i class="fas fa-home text-3xl text-amber-500 relative z-10 drop-shadow-md"></i>
+                        </div>
+                        <div class="text-[12px] font-black bg-amber-100 text-amber-800 px-2 py-0.5 rounded shadow-sm mt-1 border border-amber-300">晴海民宿</div>
+                    </div>
+                    <div class="absolute top-[36%] left-[50%] -translate-x-1/2 text-center">
+                        <i class="fas fa-utensils text-sm text-red-500 bg-white rounded-full p-1 shadow"></i>
+                        <div class="text-[9px] font-bold bg-white px-1 rounded shadow-sm mt-0.5">大頭山/海洋驛站</div>
+                    </div>
+
+                    <!-- East / South East (Photo Route) -->
+                    <div class="absolute top-[50%] right-[18%] text-center">
+                        <div class="w-5 h-5 bg-emerald-500 text-white rounded-full text-xs flex items-center justify-center font-bold shadow-md mx-auto mb-1"><i class="fas fa-camera"></i></div>
+                        <div class="text-[10px] font-bold bg-white text-emerald-700 px-1 rounded shadow-sm border border-emerald-200">龍蝦洞</div>
+                    </div>
+                    <div class="absolute top-[65%] right-[20%] text-center">
+                        <div class="w-5 h-5 bg-emerald-500 text-white rounded-full text-xs flex items-center justify-center font-bold shadow-md mx-auto mb-1"><i class="fas fa-camera"></i></div>
+                        <div class="text-[10px] font-bold bg-white text-emerald-700 px-1 rounded shadow-sm border border-emerald-200">網美老木</div>
+                    </div>
+
+                    <!-- South -->
+                    <div class="absolute bottom-[18%] left-[50%] -translate-x-1/2 text-center">
+                        <div class="w-5 h-5 bg-emerald-500 text-white rounded-full text-xs flex items-center justify-center font-bold shadow-md mx-auto mb-1"><i class="fas fa-camera"></i></div>
+                        <div class="text-[10px] font-bold bg-white px-1 rounded shadow-sm">白燈塔/觀音石</div>
+                    </div>
+                    <div class="absolute bottom-[10%] left-[30%] text-center">
+                        <i class="fas fa-camera text-sm text-amber-500 bg-white rounded-full p-1 shadow"></i>
+                        <div class="text-[9px] font-bold bg-white px-1 rounded shadow-sm mt-0.5">山豬溝/烏鬼洞桑葚冰</div>
+                    </div>
+                </div>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-2 text-center bg-white p-2 rounded border border-slate-100">※ 地圖依小琉球真實方位繪製，行程卡片中亦有精準導航按鈕。</p>
+        </div>
+
+        <!-- ==================== TAB 3: ACCOMMODATION & SCOOTER ==================== -->
+        <div id="info" class="tab-content hidden">
+            <!-- Accommodation Section -->
+            <div class="bg-white rounded-2xl card-shadow border border-slate-100 overflow-hidden mb-6">
+                <div class="bg-gradient-to-r from-indigo-500 to-purple-600 px-4 py-3">
+                    <h2 class="font-black text-lg text-white flex justify-between items-center">
+                        <span><i class="fas fa-hotel mr-2"></i>晴海民宿</span>
+                        <a href="https://maps.google.com/?q=小琉球晴海民宿" target="_blank" class="text-xs bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-full transition-colors"><i class="fas fa-map-marker-alt mr-1"></i>導航</a>
+                    </h2>
+                </div>
+                <div class="p-4">
+                    <p class="text-[13px] text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-100 font-medium mb-3">位於島上制高點，在房內或陽台即可欣賞無邊際海景、日出落及迷人夜景。配有寬敞景觀大草皮。</p>
+                    
+                    <!-- 設施實景照片 -->
+                    <div class="mb-4">
+                        <h3 class="font-black text-indigo-800 mb-2 flex items-center text-[14px]"><i class="fas fa-star text-amber-400 mr-1"></i>專屬設施</h3>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="rounded-xl overflow-hidden border border-slate-200 shadow-sm relative">
+                                <img src="https://i.postimg.cc/Yh8RR3Nt/S-121528349-0.jpg" alt="電動麻將桌" class="w-full h-24 object-cover">
+                                <div class="absolute bottom-0 left-0 right-0 bg-black/60 pt-4 pb-1 text-white text-[11px] text-center font-bold">電動麻將桌</div>
+                            </div>
+                            <div class="rounded-xl overflow-hidden border border-slate-200 shadow-sm relative">
+                                <img src="https://i.postimg.cc/JGKxxq3n/S-121528350-0.jpg" alt="KTV包廂" class="w-full h-24 object-cover">
+                                <div class="absolute bottom-0 left-0 right-0 bg-black/60 pt-4 pb-1 text-white text-[11px] text-center font-bold">無限 KTV</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Room Assignments -->
+                    <div>
+                        <h3 class="font-black text-indigo-800 mb-2 flex items-center text-[14px]"><i class="fas fa-key mr-1"></i>房間分配表</h3>
+                        
+                        <div class="mb-3">
+                            <div class="bg-indigo-50 text-indigo-800 text-xs font-black px-2 py-1 rounded inline-block mb-2">雙人房 (8 間)</div>
+                            <div class="grid grid-cols-2 gap-2 text-[13px] text-slate-700 font-medium">
+                                <div class="border-b border-slate-100 pb-1">206 總班*2</div>
+                                <div class="border-b border-slate-100 pb-1">207 大座*2</div>
+                                <div class="border-b border-slate-100 pb-1">208 大政*2</div>
+                                <div class="border-b border-slate-100 pb-1">105 信國*2</div>
+                                <div class="border-b border-slate-100 pb-1">106 士宏*2</div>
+                                <div class="border-b border-slate-100 pb-1">107 沈采*2</div>
+                                <div class="border-b border-slate-100 pb-1 col-span-2">103 昕如*2、小孩</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="bg-purple-50 text-purple-800 text-xs font-black px-2 py-1 rounded inline-block mb-2">四人房 (2 間)</div>
+                            <div class="grid grid-cols-2 gap-2 text-[13px] text-slate-700 font-medium">
+                                <div class="border-b border-slate-100 pb-1">VIP</div>
+                                <div class="border-b border-slate-100 pb-1">102 岳庭*2、小孩</div>
+                                <div class="border-b border-slate-100 pb-1 col-span-2">203 家豪、俊銘、COCO</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 早餐圖片區塊 -->
+                    <div class="mt-4 pt-4 border-t border-slate-100">
+                        <h3 class="font-black text-indigo-800 mb-2 flex items-center text-[14px]"><i class="fas fa-bread-slice mr-1 text-amber-500"></i>民宿早餐</h3>
+                        <div class="rounded-xl overflow-hidden border border-slate-200 shadow-sm relative bg-slate-100">
+                            <img src="https://scontent.ftpe19-1.fna.fbcdn.net/v/t39.30808-6/631053122_1474918311003726_7494511019323105159_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=7b2446&_nc_ohc=ytHWLOBKQv0Q7kNvwG57tkd&_nc_oc=Adr-KUAWz5UaRy0-4WWuZiQA1LhSviR8B4dRCuNvfcdxItzUlvhP-iXf5hSlbggmBBiqSDVxUpp7egTifs6P7ov8&_nc_zt=23&_nc_ht=scontent.ftpe19-1.fna&_nc_gid=wT6bOCmN2LZibu58iGrYKA&_nc_ss=7b2a8&oh=00_Af6bqzJ_WNH9_QzZNWes9y1zpKlOZtjZhV80vGG4z706Lw&oe=6A074F79" alt="民宿早餐" class="w-full h-auto object-contain">
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent pt-6 pb-2 text-white text-[12px] text-center font-bold">美味豐盛早餐</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scooter Section -->
+            <div class="bg-white rounded-2xl card-shadow border border-slate-100 overflow-hidden mb-8">
+                <div class="bg-gradient-to-r from-primary to-cyan-600 px-4 py-3">
+                    <h2 class="font-black text-lg text-white flex justify-between items-center">
+                        <span><i class="fas fa-motorcycle mr-2"></i>機車分配表</span>
+                        <a href="https://maps.google.com/?q=小琉球和春機車行" target="_blank" class="text-xs bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-full transition-colors"><i class="fas fa-map-marker-alt mr-1"></i>店家導航</a>
+                    </h2>
+                </div>
+                <div class="p-4">
+                    <div class="text-[12px] text-slate-500 mb-2"><i class="fas fa-info-circle mr-1"></i>店家：小琉球和春機車行</div>
+                    
+                    <!-- 車型參考圖片 -->
+                    <div class="mb-4 rounded-xl overflow-hidden border border-slate-200 shadow-sm relative bg-slate-100">
+                        <img src="https://scontent.ftpe19-1.fna.fbcdn.net/v/t39.30808-6/645090044_1439802141272014_8616550354974338711_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=111&ccb=1-7&_nc_sid=7b2446&_nc_ohc=tMaKOOEp4nMQ7kNvwGy7T7n&_nc_oc=AdqW9ocu-IJhSSADKS7IgaJd1VxMr3Pi5dSk5RdSvZTpFyrcYlbeMSVXxZf6YqRYtndNThyq9xOXw_tNaygIal22&_nc_zt=23&_nc_ht=scontent.ftpe19-1.fna&_nc_gid=k0T_WBdem69Xs_AQkkP2CA&_nc_ss=7b2a8&oh=00_Af6pxKYrl4rYSWHZbc8-7pG-ULWKbW8DoKqNzyhrWCOkdw&oe=6A07603B" alt="機車車型參考" class="w-full h-auto object-contain">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent pt-6 pb-2 text-white text-[12px] text-center font-bold">機車車型參考</div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-x-2 gap-y-2 text-[13px]">
+                        <div class="border-b border-slate-100 pb-1"><span class="font-black text-primary w-10 inline-block">車 1</span> <span class="text-slate-700 font-bold">大座 眷屬</span></div>
+                        <div class="border-b border-slate-100 pb-1"><span class="font-black text-primary w-10 inline-block">車 2</span> <span class="text-slate-700 font-bold">總班 眷屬</span></div>
+                        <div class="border-b border-slate-100 pb-1"><span class="font-black text-primary w-10 inline-block">車 3</span> <span class="text-slate-700 font-bold">信國 眷屬</span></div>
+                        <div class="border-b border-slate-100 pb-1"><span class="font-black text-primary w-10 inline-block">車 4</span> <span class="text-slate-700 font-bold">景鄷 眷屬</span></div>
+                        <div class="border-b border-slate-100 pb-1"><span class="font-black text-primary w-10 inline-block">車 5</span> <span class="text-slate-700 font-bold">采玲 沈姐</span></div>
+                        <div class="border-b border-slate-100 pb-1"><span class="font-black text-primary w-10 inline-block">車 6</span> <span class="text-slate-700 font-bold">士宏 眷屬</span></div>
+                        <div class="border-b border-slate-100 pb-1"><span class="font-black text-primary w-10 inline-block">車 7</span> <span class="text-slate-700 font-bold">俊銘 家豪</span></div>
+                        <div class="border-b border-slate-100 pb-1"><span class="font-black text-primary w-10 inline-block">車 8</span> <span class="text-slate-700 font-bold">COCO</span></div>
+                        <div class="col-span-2 mt-2 bg-rose-50 p-2 rounded border border-rose-100">
+                            <div class="font-black text-rose-600 mb-1 text-xs">兒童車</div>
+                            <div class="flex justify-between">
+                                <div><span class="font-bold text-rose-700 w-10 inline-block">兒 1</span> <span class="text-slate-700 font-bold">昕如 眷屬 小孩</span></div>
+                                <div><span class="font-bold text-rose-700 w-10 inline-block">兒 2</span> <span class="text-slate-700 font-bold">岳庭 眷屬 小孩</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Tab Switching Logic -->
+    <script>
+        function switchTab(tabId) {
+            // Hide all contents
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            // Reset all buttons
+            document.querySelectorAll('nav button').forEach(el => {
+                el.classList.remove('text-primary', 'border-primary');
+                el.classList.add('text-slate-400', 'border-transparent');
+            });
+            
+            // Show selected content
+            document.getElementById(tabId).classList.remove('hidden');
+            // Highlight selected button
+            const activeBtn = document.getElementById('tab-' + tabId);
+            activeBtn.classList.remove('text-slate-400', 'border-transparent');
+            activeBtn.classList.add('text-primary', 'border-primary');
+        }
+    </script>
+</body>
+</html>
