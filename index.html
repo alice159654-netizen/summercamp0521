@@ -29,10 +29,123 @@
         ::-webkit-scrollbar { width: 0px; background: transparent; }
         .map-link { color: #3b82f6; transition: color 0.2s; margin-left: auto; display: inline-flex; align-items: center; justify-content: center; background: #eff6ff; width: 28px; height: 28px; border-radius: 50%; font-size: 13px; text-decoration: none; flex-shrink: 0;}
         .map-link:hover { background: #dbeafe; color: #2563eb; }
-        .img-placeholder { background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%); display: flex; align-items: center; justify-content: center; text-align: center; color: #64748b; font-size: 10px; font-weight: bold; border-radius: 0.5rem; flex-shrink: 0; overflow: hidden; padding: 4px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);}
     </style>
 </head>
 <body class="text-slate-800 antialiased pb-24">
+
+    <!-- 可愛示意圖 SVG 定義區塊 -->
+    <svg width="0" height="0" style="position:absolute; width:0; height:0;">
+        <defs>
+            <!-- 海龜 -->
+            <g id="cute-turtle">
+                <rect width="100" height="100" rx="20" fill="#d1fae5"/>
+                <circle cx="50" cy="30" r="15" fill="#4ade80"/>
+                <ellipse cx="50" cy="65" rx="25" ry="28" fill="#16a34a"/>
+                <circle cx="20" cy="55" r="10" fill="#4ade80"/>
+                <circle cx="80" cy="55" r="10" fill="#4ade80"/>
+                <circle cx="35" cy="85" r="8" fill="#4ade80"/>
+                <circle cx="65" cy="85" r="8" fill="#4ade80"/>
+                <circle cx="43" cy="27" r="2.5" fill="#1e293b"/>
+                <circle cx="57" cy="27" r="2.5" fill="#1e293b"/>
+                <path d="M 47 32 Q 50 35 53 32" stroke="#1e293b" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <circle cx="38" cy="30" r="3" fill="#fca5a5" opacity="0.8"/>
+                <circle cx="62" cy="30" r="3" fill="#fca5a5" opacity="0.8"/>
+            </g>
+            <!-- 奇岩/岩石 -->
+            <g id="cute-rock">
+                <rect width="100" height="100" rx="20" fill="#e0f2fe"/>
+                <path d="M 0 70 Q 25 60 50 70 T 100 70 L 100 100 L 0 100 Z" fill="#3b82f6" opacity="0.4"/>
+                <path d="M 35 80 L 30 50 C 25 30 40 15 50 15 C 60 15 75 30 70 50 L 65 80 Z" fill="#94a3b8"/>
+                <path d="M 40 20 Q 50 5 60 20 Z" fill="#22c55e"/>
+                <circle cx="42" cy="45" r="2.5" fill="#1e293b"/>
+                <circle cx="58" cy="45" r="2.5" fill="#1e293b"/>
+                <path d="M 47 50 Q 50 53 53 50" stroke="#1e293b" stroke-width="2" fill="none" stroke-linecap="round"/>
+            </g>
+            <!-- 涼亭/建築 -->
+            <g id="cute-pavilion">
+                <rect width="100" height="100" rx="20" fill="#fef3c7"/>
+                <path d="M 15 45 L 50 15 L 85 45 Z" fill="#ef4444"/>
+                <rect x="35" y="45" width="30" height="40" fill="#fcd34d"/>
+                <rect x="42" y="55" width="16" height="30" fill="#b45309"/>
+                <circle cx="43" cy="35" r="2" fill="#fff"/>
+                <circle cx="57" cy="35" r="2" fill="#fff"/>
+            </g>
+            <!-- 沙灘/浪花 -->
+            <g id="cute-beach">
+                <rect width="100" height="100" rx="20" fill="#ffedd5"/>
+                <path d="M 0 60 Q 50 40 100 60 L 100 100 L 0 100 Z" fill="#fde047"/>
+                <path d="M 0 70 Q 25 50 50 70 T 100 70 L 100 100 L 0 100 Z" fill="#38bdf8" opacity="0.8"/>
+                <circle cx="25" cy="25" r="12" fill="#f97316"/>
+                <circle cx="21" cy="23" r="1.5" fill="#fff"/>
+                <circle cx="29" cy="23" r="1.5" fill="#fff"/>
+                <path d="M 22 28 Q 25 31 28 28" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            </g>
+            <!-- 小神獸 -->
+            <g id="cute-beast">
+                <rect width="100" height="100" rx="20" fill="#f3e8ff"/>
+                <path d="M 30 40 L 20 20 L 45 35 Z" fill="#a855f7"/>
+                <path d="M 70 40 L 80 20 L 55 35 Z" fill="#a855f7"/>
+                <circle cx="50" cy="55" r="28" fill="#a855f7"/>
+                <circle cx="40" cy="50" r="5" fill="#fff"/>
+                <circle cx="40" cy="50" r="2.5" fill="#1e293b"/>
+                <circle cx="60" cy="50" r="5" fill="#fff"/>
+                <circle cx="60" cy="50" r="2.5" fill="#1e293b"/>
+                <path d="M 45 62 Q 50 67 55 62" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>
+            </g>
+            <!-- 冰品 -->
+            <g id="cute-icecream">
+                <rect width="100" height="100" rx="20" fill="#ffe4e6"/>
+                <path d="M 35 45 Q 50 10 65 45 Z" fill="#fb7185"/>
+                <path d="M 38 45 L 50 85 L 62 45 Z" fill="#d97706"/>
+                <circle cx="50" cy="15" r="7" fill="#dc2626"/>
+                <circle cx="45" cy="35" r="2" fill="#fff"/>
+                <circle cx="55" cy="35" r="2" fill="#fff"/>
+                <path d="M 48 40 Q 50 42 52 40" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            </g>
+            <!-- 森林/木棧道 -->
+            <g id="cute-tree">
+                <rect width="100" height="100" rx="20" fill="#ecfccb"/>
+                <rect x="42" y="50" width="16" height="35" fill="#78350f" rx="3"/>
+                <circle cx="50" cy="35" r="25" fill="#65a30d"/>
+                <circle cx="35" cy="45" r="18" fill="#65a30d"/>
+                <circle cx="65" cy="45" r="18" fill="#65a30d"/>
+                <circle cx="43" cy="35" r="2.5" fill="#fff"/>
+                <circle cx="57" cy="35" r="2.5" fill="#fff"/>
+                <path d="M 47 42 Q 50 45 53 42" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>
+            </g>
+            <!-- 燈塔 -->
+            <g id="cute-lighthouse">
+                <rect width="100" height="100" rx="20" fill="#e0e7ff"/>
+                <path d="M 35 90 L 42 30 L 58 30 L 65 90 Z" fill="#fff"/>
+                <rect x="38" y="20" width="24" height="10" fill="#ef4444" rx="2"/>
+                <circle cx="50" cy="15" r="6" fill="#fde047"/>
+                <path d="M 38 45 L 62 45 L 63 60 L 37 60 Z" fill="#ef4444"/>
+                <circle cx="45" cy="70" r="2" fill="#1e293b"/>
+                <circle cx="55" cy="70" r="2" fill="#1e293b"/>
+                <path d="M 48 75 Q 50 78 52 75" stroke="#1e293b" stroke-width="2" fill="none" stroke-linecap="round"/>
+            </g>
+            <!-- 伴手禮/食物 -->
+            <g id="cute-gift">
+                <rect width="100" height="100" rx="20" fill="#ffedd5"/>
+                <rect x="25" y="40" width="50" height="40" fill="#f87171" rx="4"/>
+                <rect x="20" y="30" width="60" height="15" fill="#fca5a5" rx="3"/>
+                <rect x="45" y="30" width="10" height="50" fill="#fde047"/>
+                <path d="M 50 30 C 30 10 30 30 50 30 C 70 10 70 30 50 30 Z" fill="#fde047"/>
+                <circle cx="35" cy="55" r="2.5" fill="#fff"/>
+                <circle cx="65" cy="55" r="2.5" fill="#fff"/>
+                <path d="M 45 62 Q 50 67 55 62" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>
+            </g>
+            <!-- 啤酒 -->
+            <g id="cute-beer">
+                <rect width="100" height="100" rx="20" fill="#fef3c7"/>
+                <rect x="30" y="35" width="40" height="45" fill="#f59e0b" rx="5"/>
+                <path d="M 25 35 Q 50 15 75 35 Q 80 45 70 45 L 30 45 Z" fill="#fff"/>
+                <circle cx="40" cy="55" r="2.5" fill="#fff"/>
+                <circle cx="60" cy="55" r="2.5" fill="#fff"/>
+                <path d="M 46 62 Q 50 66 54 62" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>
+            </g>
+        </defs>
+    </svg>
 
     <!-- Header & Navigation (Fixed Top) -->
     <div class="fixed top-0 left-0 right-0 z-50">
@@ -103,7 +216,7 @@
                                 <!-- Detailed Spot Cards -->
                                 <div class="space-y-3">
                                     <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-slate-100">
-                                        <div class="w-[60px] h-[60px] img-placeholder"></div>
+                                        <svg viewBox="0 0 100 100" class="w-[60px] h-[60px] shrink-0 drop-shadow-sm"><use href="#cute-turtle"></use></svg>
                                         <div class="flex-1">
                                             <div class="flex justify-between items-start">
                                                 <span class="font-bold text-slate-800 text-[13px]">海龜郵筒</span>
@@ -114,7 +227,7 @@
                                     </div>
 
                                     <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-slate-100">
-                                        <div class="w-[60px] h-[60px] img-placeholder"></div>
+                                        <svg viewBox="0 0 100 100" class="w-[60px] h-[60px] shrink-0 drop-shadow-sm"><use href="#cute-turtle"></use></svg>
                                         <div class="flex-1">
                                             <div class="flex justify-between items-start">
                                                 <span class="font-bold text-slate-800 text-[13px]">861dayday</span>
@@ -125,7 +238,7 @@
                                     </div>
 
                                     <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-slate-100">
-                                        <div class="w-[60px] h-[60px] img-placeholder"></div>
+                                        <svg viewBox="0 0 100 100" class="w-[60px] h-[60px] shrink-0 drop-shadow-sm"><use href="#cute-rock"></use></svg>
                                         <div class="flex-1">
                                             <div class="flex justify-between items-start">
                                                 <span class="font-bold text-slate-800 text-[13px]">花瓶岩</span>
@@ -136,7 +249,7 @@
                                     </div>
 
                                     <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-slate-100">
-                                        <div class="w-[60px] h-[60px] img-placeholder"></div>
+                                        <svg viewBox="0 0 100 100" class="w-[60px] h-[60px] shrink-0 drop-shadow-sm"><use href="#cute-pavilion"></use></svg>
                                         <div class="flex-1">
                                             <div class="flex justify-between items-start">
                                                 <span class="font-bold text-slate-800 text-[13px]">美人洞望海亭</span>
@@ -147,7 +260,7 @@
                                     </div>
 
                                     <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-slate-100">
-                                        <div class="w-[60px] h-[60px] img-placeholder"></div>
+                                        <svg viewBox="0 0 100 100" class="w-[60px] h-[60px] shrink-0 drop-shadow-sm"><use href="#cute-beast"></use></svg>
                                         <div class="flex-1">
                                             <div class="flex justify-between items-start">
                                                 <span class="font-bold text-slate-800 text-[13px]">琉行之道-八福獸</span>
@@ -158,7 +271,7 @@
                                     </div>
 
                                     <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-slate-100">
-                                        <div class="w-[60px] h-[60px] img-placeholder"></div>
+                                        <svg viewBox="0 0 100 100" class="w-[60px] h-[60px] shrink-0 drop-shadow-sm"><use href="#cute-beach"></use></svg>
                                         <div class="flex-1">
                                             <div class="flex justify-between items-start">
                                                 <span class="font-bold text-slate-800 text-[13px]">杉福潮間帶</span>
@@ -169,7 +282,7 @@
                                     </div>
 
                                     <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-slate-100">
-                                        <div class="w-[60px] h-[60px] img-placeholder"></div>
+                                        <svg viewBox="0 0 100 100" class="w-[60px] h-[60px] shrink-0 drop-shadow-sm"><use href="#cute-beach"></use></svg>
                                         <div class="flex-1">
                                             <div class="flex justify-between items-start">
                                                 <span class="font-bold text-slate-800 text-[13px]">蛤板灣 (威尼斯沙灘)</span>
@@ -220,7 +333,7 @@
                         <div class="font-black text-blue-700 text-[15px] mb-3 flex items-center"><i class="fas fa-swimmer mr-2"></i>玩水組 (多種水域選擇)</div>
                         <div class="space-y-2">
                             <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-blue-100">
-                                <div class="w-[50px] h-[50px] img-placeholder bg-blue-100 text-blue-500 border-blue-200"></div>
+                                <svg viewBox="0 0 100 100" class="w-[50px] h-[50px] shrink-0 drop-shadow-sm"><use href="#cute-turtle"></use></svg>
                                 <div class="flex-1">
                                     <div class="flex justify-between items-start">
                                         <span class="font-black text-slate-800 text-[13px]">1. 上杉福安宮後方海灘</span>
@@ -230,7 +343,7 @@
                                 </div>
                             </div>
                             <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-blue-100">
-                                <div class="w-[50px] h-[50px] img-placeholder bg-blue-100 text-blue-500 border-blue-200"></div>
+                                <svg viewBox="0 0 100 100" class="w-[50px] h-[50px] shrink-0 drop-shadow-sm"><use href="#cute-beach"></use></svg>
                                 <div class="flex-1">
                                     <div class="flex justify-between items-start">
                                         <span class="font-black text-slate-800 text-[13px]">2. 中澳沙灘</span>
@@ -240,7 +353,7 @@
                                 </div>
                             </div>
                             <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-blue-100">
-                                <div class="w-[50px] h-[50px] img-placeholder bg-blue-100 text-blue-500 border-blue-200"></div>
+                                <svg viewBox="0 0 100 100" class="w-[50px] h-[50px] shrink-0 drop-shadow-sm"><use href="#cute-rock"></use></svg>
                                 <div class="flex-1">
                                     <div class="flex justify-between items-start">
                                         <span class="font-black text-slate-800 text-[13px]">3. 厚石魚澳</span>
@@ -258,7 +371,7 @@
                         <div class="space-y-2">
                             
                             <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-emerald-100">
-                                <div class="w-[50px] h-[50px] img-placeholder bg-emerald-50 text-emerald-600 border-emerald-100"></div>
+                                <svg viewBox="0 0 100 100" class="w-[50px] h-[50px] shrink-0 drop-shadow-sm"><use href="#cute-turtle"></use></svg>
                                 <div class="flex-1">
                                     <div class="flex justify-between items-start">
                                         <span class="font-bold text-slate-800 text-[13px]">海洋驛站</span>
@@ -269,7 +382,7 @@
                             </div>
                             
                             <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-emerald-100">
-                                <div class="w-[50px] h-[50px] img-placeholder bg-emerald-50 text-emerald-600 border-emerald-100"></div>
+                                <svg viewBox="0 0 100 100" class="w-[50px] h-[50px] shrink-0 drop-shadow-sm"><use href="#cute-rock"></use></svg>
                                 <div class="flex-1">
                                     <div class="flex justify-between items-start">
                                         <span class="font-bold text-slate-800 text-[13px]">美人洞</span>
@@ -280,7 +393,7 @@
                             </div>
 
                             <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-emerald-100">
-                                <div class="w-[50px] h-[50px] img-placeholder bg-emerald-50 text-emerald-600 border-emerald-100"></div>
+                                <svg viewBox="0 0 100 100" class="w-[50px] h-[50px] shrink-0 drop-shadow-sm"><use href="#cute-tree"></use></svg>
                                 <div class="flex-1">
                                     <div class="flex justify-between items-start">
                                         <span class="font-bold text-slate-800 text-[13px]">山豬溝</span>
@@ -291,7 +404,7 @@
                             </div>
 
                             <div class="flex gap-2.5 bg-amber-50 p-2 rounded shadow-sm border border-amber-200">
-                                <div class="w-[50px] h-[50px] img-placeholder bg-amber-100 text-amber-700 border-amber-300"></div>
+                                <svg viewBox="0 0 100 100" class="w-[50px] h-[50px] shrink-0 drop-shadow-sm"><use href="#cute-icecream"></use></svg>
                                 <div class="flex-1">
                                     <div class="flex justify-between items-start">
                                         <span class="font-black text-amber-800 text-[13px]">烏鬼洞 & 桑葚冰</span>
@@ -302,7 +415,7 @@
                             </div>
 
                             <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-emerald-100">
-                                <div class="w-[50px] h-[50px] img-placeholder bg-emerald-50 text-emerald-600 border-emerald-100"></div>
+                                <svg viewBox="0 0 100 100" class="w-[50px] h-[50px] shrink-0 drop-shadow-sm"><use href="#cute-rock"></use></svg>
                                 <div class="flex-1">
                                     <div class="flex justify-between items-start">
                                         <span class="font-bold text-slate-800 text-[13px]">觀音石</span>
@@ -313,7 +426,7 @@
                             </div>
 
                             <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-emerald-100">
-                                <div class="w-[50px] h-[50px] img-placeholder bg-emerald-50 text-emerald-600 border-emerald-100"></div>
+                                <svg viewBox="0 0 100 100" class="w-[50px] h-[50px] shrink-0 drop-shadow-sm"><use href="#cute-pavilion"></use></svg>
                                 <div class="flex-1">
                                     <div class="flex justify-between items-start">
                                         <span class="font-bold text-slate-800 text-[13px]">旭日亭</span>
@@ -324,7 +437,7 @@
                             </div>
 
                             <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-emerald-100">
-                                <div class="w-[50px] h-[50px] img-placeholder bg-emerald-50 text-emerald-600 border-emerald-100"></div>
+                                <svg viewBox="0 0 100 100" class="w-[50px] h-[50px] shrink-0 drop-shadow-sm"><use href="#cute-tree"></use></svg>
                                 <div class="flex-1">
                                     <div class="flex justify-between items-start">
                                         <span class="font-bold text-slate-800 text-[13px]">網美老木</span>
@@ -335,7 +448,7 @@
                             </div>
 
                             <div class="flex gap-2.5 bg-white p-2 rounded shadow-sm border border-emerald-100">
-                                <div class="w-[50px] h-[50px] img-placeholder bg-emerald-50 text-emerald-600 border-emerald-100"></div>
+                                <svg viewBox="0 0 100 100" class="w-[50px] h-[50px] shrink-0 drop-shadow-sm"><use href="#cute-rock"></use></svg>
                                 <div class="flex-1">
                                     <div class="flex justify-between items-start">
                                         <span class="font-bold text-slate-800 text-[13px]">龍蝦洞</span>
@@ -398,7 +511,7 @@
                                 
                                 <div class="space-y-2">
                                     <div class="flex gap-2 bg-slate-50 p-2 rounded border border-slate-100">
-                                        <div class="w-10 h-10 img-placeholder text-[8px]"></div>
+                                        <svg viewBox="0 0 100 100" class="w-10 h-10 shrink-0 drop-shadow-sm"><use href="#cute-lighthouse"></use></svg>
                                         <div class="flex-1">
                                             <div class="flex justify-between">
                                                 <span class="font-bold text-slate-700 text-[12px]">白燈塔 & 百年榕樹</span>
@@ -408,7 +521,7 @@
                                         </div>
                                     </div>
                                     <div class="flex gap-2 bg-slate-50 p-2 rounded border border-slate-100">
-                                        <div class="w-10 h-10 img-placeholder text-[8px]"></div>
+                                        <svg viewBox="0 0 100 100" class="w-10 h-10 shrink-0 drop-shadow-sm"><use href="#cute-rock"></use></svg>
                                         <div class="flex-1">
                                             <div class="flex justify-between">
                                                 <span class="font-bold text-slate-700 text-[12px]">觀音石 / 紅番石</span>
@@ -418,7 +531,7 @@
                                         </div>
                                     </div>
                                     <div class="flex gap-2 bg-slate-50 p-2 rounded border border-slate-100">
-                                        <div class="w-10 h-10 img-placeholder text-[8px] bg-amber-100 border-amber-200 text-amber-600"></div>
+                                        <svg viewBox="0 0 100 100" class="w-10 h-10 shrink-0 drop-shadow-sm"><use href="#cute-icecream"></use></svg>
                                         <div class="flex-1">
                                             <div class="flex justify-between">
                                                 <span class="font-bold text-amber-700 text-[12px]">烏鬼洞 & 桑葚冰</span>
@@ -496,7 +609,7 @@
                     <span class="text-[14px] font-black text-white bg-orange-500 px-3 py-1 rounded-full inline-block mb-3 shadow-sm">🏝️ 小琉球必吃/必買</span>
                     <div class="space-y-3">
                         <div class="flex gap-3 bg-white p-2 rounded-lg shadow-sm border border-orange-100">
-                            <div class="w-[70px] h-[70px] img-placeholder bg-amber-50 border-amber-100 text-amber-600"></div>
+                            <svg viewBox="0 0 100 100" class="w-[70px] h-[70px] shrink-0 drop-shadow-sm"><use href="#cute-beer"></use></svg>
                             <div class="flex-1">
                                 <div class="flex justify-between items-start">
                                     <strong class="text-slate-800 text-[14px]">卡布敦啤酒 Captain Beer</strong>
@@ -507,7 +620,7 @@
                         </div>
 
                         <div class="flex gap-3 bg-white p-2 rounded-lg shadow-sm border border-orange-100">
-                            <div class="w-[70px] h-[70px] img-placeholder bg-orange-50 border-orange-100 text-orange-600"></div>
+                            <svg viewBox="0 0 100 100" class="w-[70px] h-[70px] shrink-0 drop-shadow-sm"><use href="#cute-gift"></use></svg>
                             <div class="flex-1">
                                 <div class="flex justify-between items-start">
                                     <strong class="text-slate-800 text-[14px]">手工麻花捲 (王老師/龍鑽)</strong>
@@ -518,7 +631,7 @@
                         </div>
 
                         <div class="flex gap-3 bg-white p-2 rounded-lg shadow-sm border border-orange-100">
-                            <div class="w-[70px] h-[70px] img-placeholder bg-yellow-50 border-yellow-100 text-yellow-600"></div>
+                            <svg viewBox="0 0 100 100" class="w-[70px] h-[70px] shrink-0 drop-shadow-sm"><use href="#cute-gift"></use></svg>
                             <div class="flex-1">
                                 <div class="flex justify-between items-start">
                                     <strong class="text-slate-800 text-[14px]">小蝌蚪起司餅</strong>
@@ -529,7 +642,7 @@
                         </div>
 
                         <div class="flex gap-3 bg-white p-2 rounded-lg shadow-sm border border-orange-100">
-                            <div class="w-[70px] h-[70px] img-placeholder bg-emerald-50 border-emerald-100 text-emerald-600"></div>
+                            <svg viewBox="0 0 100 100" class="w-[70px] h-[70px] shrink-0 drop-shadow-sm"><use href="#cute-turtle"></use></svg>
                             <div class="flex-1">
                                 <div class="flex justify-between items-start">
                                     <strong class="text-slate-800 text-[14px]">海龜燒 (西晒/861dayday)</strong>
@@ -540,7 +653,7 @@
                         </div>
                         
                         <div class="flex gap-3 bg-white p-2 rounded-lg shadow-sm border border-orange-100">
-                            <div class="w-[70px] h-[70px] img-placeholder bg-orange-50 border-orange-100 text-orange-600"></div>
+                            <svg viewBox="0 0 100 100" class="w-[70px] h-[70px] shrink-0 drop-shadow-sm"><use href="#cute-gift"></use></svg>
                             <div class="flex-1">
                                 <div class="flex justify-between items-start">
                                     <strong class="text-slate-800 text-[14px]">蜜仔番薯糖</strong>
@@ -554,12 +667,12 @@
 
                 <!-- Donggang -->
                 <div class="pt-3 border-t border-orange-200">
-                    <span class="text-[14px] font-black text-white bg-red-500 px-3 py-1 rounded-full inline-block mb-3 shadow-sm">⛴️ 東港必買 (大智嚴選)</span>
+                    <span class="text-[14px] font-black text-white bg-red-500 px-3 py-1 rounded-full inline-block mb-3 shadow-sm">⛴️ 東港必買 (嚴選推薦)</span>
                     <div class="space-y-3">
                         <div class="flex gap-3 bg-white p-2 rounded-lg shadow-sm border border-red-100 relative overflow-hidden">
                             <div class="absolute top-0 right-0 w-1.5 h-full bg-red-400"></div>
-                            <div class="w-[60px] h-[60px] img-placeholder bg-red-50 text-red-600 border-red-100"></div>
-                            <div class="flex-1">
+                            <svg viewBox="0 0 100 100" class="w-[60px] h-[60px] shrink-0 drop-shadow-sm relative z-10"><use href="#cute-gift"></use></svg>
+                            <div class="flex-1 relative z-10">
                                 <div class="flex justify-between items-start">
                                     <strong class="text-slate-800 text-[14px]">雙糕潤 (邱記/成記)</strong>
                                     <a href="https://maps.google.com/?q=東港雙糕潤" target="_blank" class="map-link w-6 h-6 text-[11px] bg-red-50 text-red-600"><i class="fas fa-map-marker-alt"></i></a>
@@ -570,8 +683,8 @@
 
                         <div class="flex gap-3 bg-white p-2 rounded-lg shadow-sm border border-red-100 relative overflow-hidden">
                             <div class="absolute top-0 right-0 w-1.5 h-full bg-red-400"></div>
-                            <div class="w-[60px] h-[60px] img-placeholder bg-red-50 text-red-600 border-red-100"></div>
-                            <div class="flex-1">
+                            <svg viewBox="0 0 100 100" class="w-[60px] h-[60px] shrink-0 drop-shadow-sm relative z-10"><use href="#cute-gift"></use></svg>
+                            <div class="flex-1 relative z-10">
                                 <div class="flex justify-between items-start">
                                     <strong class="text-slate-800 text-[14px]">旗魚黑輪 (瑞字號)</strong>
                                     <a href="https://maps.google.com/?q=華僑市場瑞字號旗魚黑輪" target="_blank" class="map-link w-6 h-6 text-[11px] bg-red-50 text-red-600"><i class="fas fa-map-marker-alt"></i></a>
