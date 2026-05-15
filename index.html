@@ -144,6 +144,14 @@
                 <circle cx="60" cy="55" r="2.5" fill="#fff"/>
                 <path d="M 46 62 Q 50 66 54 62" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>
             </g>
+            <!-- 生魚片 -->
+            <g id="cute-sashimi">
+                <rect width="100" height="100" rx="20" fill="#fee2e2"/>
+                <rect x="25" y="65" width="50" height="8" rx="4" fill="#64748b"/>
+                <path d="M 30 60 Q 40 30 55 40 Q 45 70 30 60 Z" fill="#ef4444"/>
+                <path d="M 45 60 Q 55 30 70 40 Q 60 70 45 60 Z" fill="#f87171"/>
+                <path d="M 40 45 L 45 55 M 55 45 L 60 55" stroke="#fff" stroke-width="2" opacity="0.6"/>
+            </g>
         </defs>
     </svg>
 
@@ -154,10 +162,11 @@
             <h1 class="text-xl font-black tracking-wide"><i class="fas fa-ship mr-2"></i>軍士官團 小琉球夏日之旅</h1>
         </header>
         
-        <nav class="glass-nav flex justify-around p-2 text-sm font-bold shadow-sm">
-            <button onclick="switchTab('itinerary')" id="tab-itinerary" class="flex-1 py-2 text-primary border-b-2 border-primary transition-all">行程與攻略</button>
+        <nav class="glass-nav flex justify-around p-2 text-[13px] sm:text-sm font-bold shadow-sm">
+            <button onclick="switchTab('itinerary')" id="tab-itinerary" class="flex-1 py-2 text-primary border-b-2 border-primary transition-all">行程攻略</button>
+            <button onclick="switchTab('food')" id="tab-food" class="flex-1 py-2 text-slate-400 border-b-2 border-transparent transition-all">必吃伴手禮</button>
             <button onclick="switchTab('map')" id="tab-map" class="flex-1 py-2 text-slate-400 border-b-2 border-transparent transition-all">地圖導覽</button>
-            <button onclick="switchTab('info')" id="tab-info" class="flex-1 py-2 text-slate-400 border-b-2 border-transparent transition-all">住宿與車輛</button>
+            <button onclick="switchTab('info')" id="tab-info" class="flex-1 py-2 text-slate-400 border-b-2 border-transparent transition-all">住宿車輛</button>
         </nav>
     </div>
 
@@ -172,16 +181,19 @@
                 <p class="text-red-700 font-black text-[15px] flex items-center mb-2"><i class="fas fa-exclamation-triangle mr-2"></i>出發集合時間</p>
                 <div class="text-[13px] text-red-600 font-medium space-y-2">
                     <div class="flex items-center text-[15px] font-black flex-wrap">06:00 嘉義航空站 集合 <a href="https://maps.google.com/?q=嘉義航空站" target="_blank" class="map-link ml-2 w-6 h-6 text-[10px] shrink-0"><i class="fas fa-map-marker-alt"></i></a></div>
-                    <p class="text-xs ml-4 font-bold text-red-700">搭乘中型遊覽車前往 <br>※ 第一天早餐請自備</p>
+                    <p class="text-xs ml-4 font-bold text-red-700">搭乘中型遊覽車前往、※ 第一天早餐請自備</p>
                     
                     <div class="pt-2 border-t border-red-100 mt-2">
-                        <div class="flex items-center text-slate-700 flex-wrap"><strong class="mr-1">(自行開車者建議)</strong> 08:00 抵達東港 <strong>和記停車場</strong> <a href="https://maps.google.com/?q=東港碼頭和記停車場" target="_blank" class="map-link ml-2 w-6 h-6 text-[10px] bg-slate-200 text-slate-600 hover:bg-slate-300 shrink-0"><i class="fas fa-map-marker-alt"></i></a></div>
-                        <p class="text-xs ml-2 mt-1 text-slate-600">聯絡電話: 0938-383-030</p>
+                        <div class="flex items-center text-slate-700 flex-wrap"><strong class="mr-1">自行開車者建議 </strong> 08:00 抵達東港 <strong>和記停車場</strong> <a href="https://maps.google.com/?q=東港碼頭和記停車場" target="_blank" class="map-link ml-2 w-6 h-6 text-[10px] bg-slate-200 text-slate-600 hover:bg-slate-300 shrink-0"><i class="fas fa-map-marker-alt"></i></a></div>
+                        <p class="text-xs ml-2 mt-1 text-slate-600">(聯絡電話: 0938-383-030)</p>
                         <p class="text-[11px] text-red-500 bg-red-100/50 p-1.5 rounded inline-block mt-1.5">※ 兩天一夜250，有遮陽棚優惠320，可於隔天17:30前取車</p>
                     </div>
                     
                     <div class="flex items-center bg-red-100 p-2.5 rounded mt-3">
-                        <span class="text-[15px] font-black text-red-700 leading-tight">08:20 泰富航運碼頭 集合<br><span class="text-xs font-normal">(預計抵達)</span></span>
+                        <div class="flex-1">
+                            <span class="text-[15px] font-black text-red-700 leading-tight block">08:20 泰富航運碼頭 集合<span class="text-[12px] font-normal ml-1">(預計抵達)</span></span>
+                            <span class="text-[14px] font-bold text-red-600 block mt-1.5"><i class="fas fa-ship mr-1"></i>09:00 船班準時啟航</span>
+                        </div>
                         <a href="https://maps.google.com/?q=東港泰富航運" target="_blank" class="map-link bg-red-200 text-red-700 hover:bg-red-300 ml-auto shrink-0"><i class="fas fa-map-marker-alt"></i></a>
                     </div>
                 </div>
@@ -598,7 +610,7 @@
                                     <span class="font-black text-cyan-800 text-[15px]">抵達東港 ➔ 華僑市場</span>
                                     <a href="https://maps.google.com/?q=東港華僑市場" target="_blank" class="map-link bg-cyan-200 text-cyan-800 shrink-0"><i class="fas fa-map-marker-alt"></i></a>
                                 </div>
-                                <p class="text-[13px] font-bold text-cyan-700 mt-1.5 leading-relaxed">自由逛華僑市場，推薦買雙糕潤、旗魚黑輪！</p>
+                                <p class="text-[13px] font-bold text-cyan-700 mt-1.5 leading-relaxed">自由逛華僑市場，推薦必吃黑鮪魚生魚片、買雙糕潤與旗魚黑輪！</p>
                             </div>
                         </li>
                         <li class="flex gap-3 items-start pt-3 bg-indigo-50 p-4 rounded-xl border border-indigo-100">
@@ -614,10 +626,13 @@
                     </ul>
                 </div>
             </div>
+        </div>
 
+        <!-- ==================== TAB 2: FOOD & GIFTS ==================== -->
+        <div id="food" class="tab-content hidden">
             <!-- Enhanced Food & Gift Notes -->
             <div class="bg-orange-50 rounded-xl card-shadow p-5 mb-8 border border-orange-200">
-                <h3 class="font-black text-orange-700 mb-4 flex items-center text-[18px]"><i class="fas fa-gift mr-2"></i>必吃與伴手禮 究極指南</h3>
+                <h2 class="font-black text-orange-700 mb-4 flex items-center text-[18px]"><i class="fas fa-gift mr-2"></i>必吃與伴手禮 究極指南</h2>
                 
                 <!-- Xiaoliuqiu -->
                 <div class="mb-5">
@@ -686,6 +701,18 @@
                     <div class="space-y-3">
                         <div class="flex gap-3 bg-white p-3 rounded-xl shadow-sm border border-red-100 relative overflow-hidden">
                             <div class="absolute top-0 right-0 w-2 h-full bg-red-400"></div>
+                            <svg viewBox="0 0 100 100" class="w-[60px] h-[60px] shrink-0 drop-shadow-sm relative z-10"><use href="#cute-sashimi"></use></svg>
+                            <div class="flex-1 relative z-10 pr-2">
+                                <div class="flex justify-between items-start">
+                                    <strong class="text-slate-800 text-[15px]">黑鮪魚生魚片</strong>
+                                    <a href="https://maps.google.com/?q=華僑市場黑鮪魚" target="_blank" class="map-link w-7 h-7 text-[12px] bg-red-50 text-red-600 shrink-0"><i class="fas fa-map-marker-alt"></i></a>
+                                </div>
+                                <span class="text-slate-500 text-[13px] leading-relaxed block mt-1">華僑市場必吃！當季新鮮黑鮪魚，入口即化的極致海鮮美味。</span>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-3 bg-white p-3 rounded-xl shadow-sm border border-red-100 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-2 h-full bg-red-400"></div>
                             <svg viewBox="0 0 100 100" class="w-[60px] h-[60px] shrink-0 drop-shadow-sm relative z-10"><use href="#cute-gift"></use></svg>
                             <div class="flex-1 relative z-10 pr-2">
                                 <div class="flex justify-between items-start">
@@ -710,10 +737,9 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
-        <!-- ==================== TAB 2: MAP ==================== -->
+        <!-- ==================== TAB 3: MAP ==================== -->
         <div id="map" class="tab-content hidden">
             <h2 class="text-lg font-black text-primary mb-3"><i class="fas fa-map-marked-alt mr-2"></i>景點精確分佈圖</h2>
             <div class="bg-cyan-50 rounded-3xl p-4 card-shadow border border-cyan-100 relative h-[550px] overflow-hidden flex items-center justify-center">
@@ -805,7 +831,7 @@
             <p class="text-[12px] text-slate-500 mt-3 text-center bg-white p-2.5 rounded-lg border border-slate-100 font-medium">※ 地圖依小琉球真實方位繪製，行程卡片中亦有精準導航按鈕。</p>
         </div>
 
-        <!-- ==================== TAB 3: ACCOMMODATION & SCOOTER ==================== -->
+        <!-- ==================== TAB 4: ACCOMMODATION & SCOOTER ==================== -->
         <div id="info" class="tab-content hidden">
             <!-- Accommodation Section -->
             <div class="bg-white rounded-2xl card-shadow border border-slate-100 overflow-hidden mb-6">
@@ -895,11 +921,11 @@
                     </div>
 
                     <div class="grid grid-cols-2 gap-x-3 gap-y-3 text-[14px]">
-                        <div class="border-b border-slate-100 pb-1.5"><span class="font-black text-primary w-12 inline-block">車 1</span> <span class="text-slate-700 font-bold">大座 </span></div>
+                        <div class="border-b border-slate-100 pb-1.5"><span class="font-black text-primary w-12 inline-block">車 1</span> <span class="text-slate-700 font-bold">大座</span></div>
                         <div class="border-b border-slate-100 pb-1.5"><span class="font-black text-primary w-12 inline-block">車 2</span> <span class="text-slate-700 font-bold">總班 眷屬</span></div>
                         <div class="border-b border-slate-100 pb-1.5"><span class="font-black text-primary w-12 inline-block">車 3</span> <span class="text-slate-700 font-bold">信國 眷屬</span></div>
                         <div class="border-b border-slate-100 pb-1.5"><span class="font-black text-primary w-12 inline-block">車 4</span> <span class="text-slate-700 font-bold">景鄷 眷屬</span></div>
-                        <div class="border-b border-slate-100 pb-1.5"><span class="font-black text-primary w-12 inline-block">車 5</span> <span class="text-slate-700 font-bold">沈姐 </span></div>
+                        <div class="border-b border-slate-100 pb-1.5"><span class="font-black text-primary w-12 inline-block">車 5</span> <span class="text-slate-700 font-bold">沈姐</span></div>
                         <div class="border-b border-slate-100 pb-1.5"><span class="font-black text-primary w-12 inline-block">車 6</span> <span class="text-slate-700 font-bold">士宏 眷屬</span></div>
                         <div class="border-b border-slate-100 pb-1.5"><span class="font-black text-primary w-12 inline-block">車 7</span> <span class="text-slate-700 font-bold">俊銘 家豪</span></div>
                         <div class="border-b border-slate-100 pb-1.5"><span class="font-black text-primary w-12 inline-block">車 8</span> <span class="text-slate-700 font-bold">COCO</span></div>
